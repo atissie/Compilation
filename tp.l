@@ -51,7 +51,7 @@ void lexError(char c) {
 
 %%
 "/*"({NotStar}|{Star}+{NotStarPar})*{Star}*"*/" { return(COMMENT); }
-{Guill}{InterieurChaine}{Guill} { yylval.S = strdup(yytext); return(ChaineString); }
+{Guill}{InterieurChaine}{Guille} { yylval.S = strdup(yytext); return(ChaineString); }
 {Entier} 		{ yylval.I = atoi(yytext); return(Cste); }
 {Symbole}		{ return(yytext[0]); }
 {Lower}{LC}*	{ return keywordOrId(); }
