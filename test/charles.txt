@@ -1,0 +1,12 @@
+Test
+/* coucou */ 
+T01
+salut 
+lGR
+/* test 2 */
+!
+?
+£
+$
+µ
+ééé

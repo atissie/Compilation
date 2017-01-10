@@ -1,0 +1,14 @@
+*~
+tp.exe*
+tp
+*.o
+tp_l.*
+tp_y.*
+
+test/*~
+test/*.out
+test/*/*~
+test/*/*.out
+
+*.swp
+test_lex
