@@ -38,9 +38,23 @@ int keywordOrId() {
   	if (! strcmp(yytext, "if")) return IF;
   	if (! strcmp(yytext, "then")) return THEN;
   	if (! strcmp(yytext, "else")) return ELSE;
+	
+	if (! strcmp(yytext, "new")) return NEWC;
+	if (! strcmp(yytext, "this")) return THIS;
+	if (! strcmp(yytext, "super")) return SUPER;
+	if (! strcmp(yytext, "result")) return RESULT;
 
 	yylval.S = strdup(yytext);
-	return(Id);	
+	return(ID);	
+}
+
+int keywordUpper() {
+
+	yylval.S = strdup(yytext);
+	if (! strcmp(yytext, "Integer")) return CLASSEINT;
+	if (! strcmp(yytext, "String")) return CLASSESTRING;
+
+	return (NOMCLASSE);
 }
 
 void lexError(char c) {
@@ -50,12 +64,12 @@ void lexError(char c) {
 %}
 
 %%
-"/*"({NotStar}|{Star}+{NotStarPar})*{Star}*"*/" { return(COMMENT); }
+"/*"({NotStar}|{Star}+{NotStarPar})*{Star}*"*/" { }
 {Guill}{InterieurChaine}{Guill} { yylval.S = strdup(yytext); return(ChaineString); }
 {Entier} 		{ yylval.I = atoi(yytext); return(Cste); }
 {Symbole}		{ return(yytext[0]); }
 {Lower}{LC}*	{ return keywordOrId(); }
-{Upper}{LC}* 	{ yylval.S = strdup(yytext); return (Classe); }
+{Upper}{LC}* 	{ return keywordUpper(); }
 {Delim}+		{ }
 ":="			{ return(AFF); }
 "="				{ yylval.C = EQ; return(RelOp); }

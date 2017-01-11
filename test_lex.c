@@ -137,11 +137,13 @@ int main(int argc, char **argv) {
       }
       printf("Nombre d'identificateurs: %4d\n", nbIdent);
       return 0;
-    case Id:
+    case ID:
       makeIdent(yylineno, yylval.S);
       if (verbose) printf("Identificateur:\t\t%s\n", yylval.S);
       break;
-    case Classe:
+    case NOMCLASSE:
+	case CLASSEINT:
+	case CLASSESTRING:
 		makeIdent(yylineno, yylval.S);
       	if (verbose) printf("NomClasse:\t\t%s\n", yylval.S);
       	break;
@@ -162,6 +164,10 @@ int main(int argc, char **argv) {
     case DEF:
     case OVERRIDE:
     case RETURN:
+	case NEWC:
+	case THIS:
+	case SUPER:
+	case RESULT:
     case AS:
       if (verbose) printf("Mot-clef:\t\t%s\n",  yytext);
       break;
@@ -184,9 +190,6 @@ int main(int argc, char **argv) {
     case AFF:
       if (verbose) printf("Affectation:\t\t%s\n", yytext);
       break; 
-    case COMMENT : 
-      if (verbose) printf("Commentaire :\t\t%s\n", yytext);
-      break;
     case RelOp:
       /* inutilement complique ici, mais sert a illustrer la difference
        * entre le token et l'infirmation supplementaire qu'on peut associer
