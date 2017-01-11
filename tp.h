@@ -1,7 +1,9 @@
 #include <stdlib.h>
 
+
 #define TRUE 1
 #define FALSE 0
+
 
 typedef unsigned char bool;
 
@@ -35,7 +37,6 @@ typedef struct _varDecl {
   struct _varDecl *next;
 } VarDecl, *VarDeclP;
 
-
 /* la structure d'un arbre (noeud ou feuille) */
 typedef struct _Tree {
   short op;         /* etiquette de l'operateur courant */
@@ -57,5 +58,42 @@ typedef union
 	VarDeclP pV;
 } YYSTYPE;
 
-#define YYSTYPE YYSTYPE
+struct _Classe;
+typedef struct _Classe Classe, *ClasseP;
+struct _Methode;
+typedef struct _Methode Methode;
+struct _Parametre;
+typedef struct _Parametre Parametre;
 
+/* MEMO
+ * Classe maClasse; // -> Pointeur
+ * Classe monPointeur = &maClasse // -> Objet */
+
+struct _Classe {
+	char *nom;					/* Nom de la classe */
+	ClasseP herite;		/* Pointeur sur la classe hérité */
+	Parametre **parametres;		/* Liste de parametres */
+	Methode **methodesClasse;	/* Liste methodes de classe */
+	Methode *constructeur; 		/* Constructeur */
+	/* ... Pas terminé, possibilité de rajouter des choses */
+	
+};
+
+struct _Methode {
+	char *typeR;				/* Type de retour de la methode */
+	char *nom;					/* Nom de la méthode */
+	bool surcharge;				/* La méthode est une surcharge d'une autre */
+	Parametre **parametre;		/* Liste de parametre de la méthode */
+	TreeP *CorpsFonction;		/* Abre d expression representant la fonciton */
+	/* ... Pas terminé, possibilité de rajouter des choses */
+};
+
+
+struct _Parametre{
+	char *nom;					/* Nom du parametre */
+	ClasseP type;				/* Nom du type du parametre */
+	TreeP expressions;			/* Expressions du parametre sous forme d'abre */
+								/* Ex: x: Integer := y + 5 + 2 ou x: Integer := 2 */
+};
+
+#define YYSTYPE YYSTYPE
