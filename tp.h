@@ -58,10 +58,12 @@ typedef unsigned char bool;
 #define EMINUS 42
 #define EMUL 43
 #define EQUO 44
+#define APPC 45
 #define CONST 46
 #define EAND 47
 #define ECAE 48
 #define EEXP 49
+#define ERES 50
 #define ERET 51
 #define EAFF 52
 #define ITE 53
@@ -76,8 +78,8 @@ typedef unsigned char bool;
 #define IDVAR 62
 #define ETHIS 63
 #define ESUP 64
-#define ERES 65
-#define APPC 66
+
+
 
 /* Codes d'erreurs */
 #define NO_ERROR	0
