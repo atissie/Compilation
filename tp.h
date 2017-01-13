@@ -79,8 +79,6 @@ typedef unsigned char bool;
 #define ETHIS 63
 #define ESUP 64
 
-
-
 /* Codes d'erreurs */
 #define NO_ERROR	0
 #define USAGE_ERROR	1
@@ -168,9 +166,5 @@ TreeP makeTree(short op, int nbChildren, ...);	    /* noeud interne */
 
 /* gestion des declarations et traitement de la portee */
 VarDeclP addToScope(VarDeclP list, VarDeclP nouv);
-VarDeclP declVar(char *name, TreeP tree, VarDeclP decls);
 
-/* evaluateur d'expressions */
-VarDeclP evalDecls (TreeP tree);
-int eval(TreeP tree, VarDeclP decls);
-int evalMain(TreeP tree, VarDeclP decls);
+/* A FAIRE - FONCTION DE VERIFICATION (pour pré-génération)*/

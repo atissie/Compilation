@@ -98,7 +98,7 @@ AffExpressionOpt : AFF Expression   { $$ = makeTree(AEO, 2, NIL(Tree), $2); }
 ;
 
 
-/* Méthode : */
+/* Méthode */
 
 
 ListDeclMethodeOpt : DeclMethode ListDeclMethodeOpt 

@@ -156,3 +156,35 @@ TreeP makeLeafLVar(short op, VarDeclP lvar) {
   return(tree);
 }
 
+
+/**
+**
+**
+* FONCTION A VERIFIER ET/OU COMPLETER POUR VERIFIER LES ELEMENTS DANS L ARBRE
+* CF TP PARTIE 2
+**
+**/
+
+/* Verifie que nouv n'apparait pas deja dans list. l'ajoute en tete et
+ * renvoie la nouvelle liste
+ */
+/*
+VarDeclP addToScope(VarDeclP list, VarDeclP nouv) {
+}
+*/
+
+/* Avant evaluation, verifie si tout identificateur qui apparait dans tree a
+ * bien ete declare (dans ce cas il doit etre dans la liste lvar).
+ * On impose que ca soit le cas y compris si on n'a pas besoin de cet
+ * identificateur pour l'evaluation, comme par exemple x dans
+ * begin if 1 = 1 then 1 else x end
+ * Le champ 'val' de la structure VarDecl n'est pas significatif
+ * puisqu'on n'a encore rien evalue.
+ */
+/*
+bool checkScope(TreeP tree, VarDeclP lvar) {
+}
+*/
+
+
+
