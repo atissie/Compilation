@@ -23,7 +23,7 @@ typedef unsigned char bool;
 #define ECLA 7
 #define ECLI 8
 #define ECLS 9
-#define ENCL 10
+#define ESUP 10
 #define LCO 11
 #define EXTO 12
 #define ECC 13
@@ -77,7 +77,6 @@ typedef unsigned char bool;
 #define EEXPI 61
 #define IDVAR 62
 #define ETHIS 63
-#define ESUP 64
 
 /* Codes d'erreurs */
 #define NO_ERROR	0
@@ -90,6 +89,8 @@ typedef unsigned char bool;
 #define EVAL_ERROR	50
 #define UNEXPECTED	10O
 
+
+/* A REMPLIR */
 typedef struct _varDecl {
   char *name;
   struct _varDecl *next;
@@ -119,7 +120,7 @@ typedef union
 struct _Classe;
 typedef struct _Classe Classe, *ClasseP;
 struct _Methode;
-typedef struct _Methode Methode;
+typedef struct _Methode Methode, *MethodeP;
 struct _Parametre;
 typedef struct _Parametre Parametre;
 
@@ -134,7 +135,6 @@ struct _Classe {
 	Methode **methodesClasse;	/* Liste methodes de classe */
 	Methode *constructeur; 		/* Constructeur */
 	/* ... Pas terminé, possibilité de rajouter des choses */
-	
 };
 
 struct _Methode {
@@ -142,7 +142,9 @@ struct _Methode {
 	char *nom;					/* Nom de la méthode */
 	bool surcharge;				/* La méthode est une surcharge d'une autre */
 	Parametre **parametre;		/* Liste de parametre de la méthode */
-	TreeP *CorpsFonction;		/* Abre d expression representant la fonciton */
+	int nbParametres;			/* Le nombre de paramètres */
+	TreeP CorpsFonction;		/* Abre d'expression representant la fonction */
+	int nbVariables;			/* Le nombre de variables dans la méthode */
 	/* ... Pas terminé, possibilité de rajouter des choses */
 };
 
@@ -163,6 +165,11 @@ struct _Parametre{
 TreeP makeLeafStr(short op, char *str); 	    /* feuille (string) */
 TreeP makeLeafInt(short op, int val);	            /* feuille (int) */
 TreeP makeTree(short op, int nbChildren, ...);	    /* noeud interne */
+
+
+/* affichage */
+void printTree(TreeP my_tree, int prof);
+
 
 /* gestion des declarations et traitement de la portee */
 VarDeclP addToScope(VarDeclP list, VarDeclP nouv);

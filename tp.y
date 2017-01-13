@@ -34,6 +34,8 @@ Programme : ListClasseOpt Bloc
     ClasseDeclP lclasse = evalDecls($1);
     evalMain($3, lclasse);
     */
+    
+    printTree($2, 0);
 }
 ;
 
@@ -41,12 +43,12 @@ Programme : ListClasseOpt Bloc
 /* Classe */
 
 Classe : CLASS NOMCLASSE '(' ListParamOpt ')' ExtendsOpt BlocOpt IS '{' ContenuClasse '}'       
-                            { $$ = makeTree(ECLA, 4, $4, $6, $7, $10); }
+                            { $$ = makeTree(ECLA, 5, makeLeafStr(IDVAR, $2), $4, $6, $7, $10); }
 ;
 
 AppelClasse : CLASSEINT     { $$ = makeLeafInt(APPC, ECLI); }
 | CLASSESTRING              { $$ = makeLeafInt(APPC, ECLS); }
-| NOMCLASSE                 { $$ = makeLeafInt(APPC, ENCL); }
+| NOMCLASSE                 { $$ = makeLeafStr(APPC, $1); }
 ;
 
 ListClasseOpt : Classe ListClasseOpt    { $$ = makeTree(LCO, 2, $1, $2); }
@@ -72,7 +74,7 @@ ListDeclChamp : DeclChamp ListDeclChamp { $$ = makeTree(LDC, 2, $1, $2); }
 ;
 
 DeclChamp : VAR ID ':' AppelClasse AffExpressionOpt ';'
-                            { $$ = makeTree(VIAA, 2, $4, $5); }
+                            { $$ = makeTree(VIAA, 3, makeLeafStr(IDVAR, $2), $4, $5); }
 ;
 
 BlocOpt : Bloc  { $$ = makeTree(EBLOC, 2, NIL(Tree), $1); }
@@ -82,7 +84,7 @@ BlocOpt : Bloc  { $$ = makeTree(EBLOC, 2, NIL(Tree), $1); }
 
 /* Param */
 
-Param : ID ':' AppelClasse          { $$ = makeTree(IDAC, 2, $1, $3); }
+Param : ID ':' AppelClasse          { $$ = makeTree(IDAC, 2, makeLeafStr(IDVAR, $1), $3); }
 ;
 
 ListParamOpt : ListParam            { $$ = makeTree(LPARO, 2, NIL(Tree), $1); }
@@ -107,13 +109,13 @@ ListDeclMethodeOpt : DeclMethode ListDeclMethodeOpt
 ;
 
 DeclMethode : OverrideOpt DEF ID '(' ListParamOpt ')' ':' AppelClasse AFF Expression
-        { $$ = makeTree(EDMET1, 4, $1, $5, $8, $10); }
+        { $$ = makeTree(EDMET1, 5, $1, makeLeafStr(IDVAR, $3), $5, $8, $10); }
 | OverrideOpt DEF ID '(' ListParamOpt ')' AppelClasseOpt IS Bloc
-        { $$ = makeTree(EDMET2, 4, $1, $5, $7, $9); }
+        { $$ = makeTree(EDMET2, 5, $1, makeLeafStr(IDVAR, $3), $5, $7, $9); }
 ;
 
 AppelMethode : ID '(' ListExpressionOpt ')' 
-                                    { $$ = makeTree(EILEO, 2, $1, $3); }
+                            { $$ = makeTree(EILEO, 2, makeLeafStr(IDVAR, $1), $3); }
 ;
 
 AppelClasseOpt : ':' AppelClasse    { $$ = makeTree(EAPPC, 2, NIL(Tree), $2); }
@@ -176,8 +178,7 @@ Instruction : Expression ';'           { $$ = makeTree(EEXP, 2, NIL(Tree), $1); 
                                         { $$ = makeTree(ITE, 3, $2, $4, $6); }
 ;
 
-ListInstructionOpt : Instruction ListInstructionOpt 
-                                            {$$=makeTree(ILINSTO, 2, $1, $2);}
+ListInstructionOpt : Instruction ListInstructionOpt     {$$=makeTree(ILINSTO, 2, $1, $2);}
 |                                                       { $$ = NIL(Tree); }
 ;
 
@@ -200,8 +201,8 @@ InterieurBloc : ListInstructionOpt  { $$ = makeTree(LINSTO, 2, NIL(Tree), $1); }
 Envoi : Expression '.' AppelMethode { $$ = makeTree(EEXPA, 2, $1, $3); }
 ;
 
-Selection : Expression '.' ID   { $$ = makeTree(EEXPI, 2, $1, $3); }
-| ID               				{ $$ = 	makeLeafStr(IDVAR, $1); }
+Selection : Expression '.' ID   { $$ = makeTree(EEXPI, 2, $1, makeLeafStr(IDVAR, $3)); }
+| ID               				{ $$ = makeLeafStr(IDVAR, $1); }
 | THIS                          { $$ = makeLeafInt(IDVAR, ETHIS); }
 | SUPER                         { $$ = makeLeafInt(IDVAR, ESUP); }
 | RESULT                        { $$ = makeLeafInt(IDVAR, ERES); }

@@ -26,6 +26,8 @@ int errorCode = NO_ERROR;
 
 FILE *out; /* fichier de sortie pour le code engendre */
 
+void printEt(short op); /* prototype du switch des etiquettes AST */
+
 
 int main(int argc, char **argv) {
   int fi;
@@ -115,6 +117,26 @@ TreeP makeTree(short op, int nbChildren, ...) {
   return(tree);
 }
 
+/*MethodeP makeMethode() {
+	
+
+}*/
+
+
+void printTree(TreeP my_tree, int prof) {
+	int i;
+	for (i=0; i < prof; i++) {
+        fputs("|_ ", stdout);
+    }
+	
+	printEt(my_tree->op);
+	printf("\n");
+	for(i=0; i<my_tree->nbChildren; i++) {
+		if (my_tree->u.children[i] != NIL(Tree))
+			printTree(my_tree->u.children[i], prof+1);
+	}
+}
+
 
 /* Retourne le rankieme fils d'un arbre (de 0 a n-1) */
 TreeP getChild(TreeP tree, int rank) {
@@ -155,6 +177,209 @@ TreeP makeLeafLVar(short op, VarDeclP lvar) {
   tree->u.lvar = lvar;
   return(tree);
 }
+
+
+
+/* Switch d'affichage des elements pour l'AST - Voir son utilite */
+void printEt(short op) {
+	switch (op) {
+		case 1:
+			printf ("NE");
+			break;
+		case 2: 
+			printf("EQ");
+			break;
+		case 3:
+			printf("LT");
+			break;
+		case 4:
+			printf("LE");
+			break;
+		case 5:
+			printf("GT");
+			break;
+		case 6:
+			printf("GE");
+			break;
+		case 7:
+			printf("ECLA");
+			break;
+		case 8:
+			printf("ECLI");
+			break;
+		case 9:
+			printf("ECLS");
+			break;
+		case 10:
+			printf("ESUP");
+			break;
+		case 11:
+			printf("LCO");
+			break;
+		case 12:	
+			printf("EXTO");
+			break;
+		case 13:
+			printf("ECC");
+			break;
+		case 14:
+			printf("LDCO");
+			break;
+		case 15:
+			printf("LDC");
+			break;
+		case 16:
+			printf("ECHAMP");
+			break;
+		case 17:
+			printf("VIAA");
+			break;
+		case 18:
+			printf("EBLOC");
+			break;
+		case 19:
+			printf("IDAC");
+			break;
+		case 20:
+			printf("LPARO");
+			break;
+		case 21:
+			printf("LPAR");
+			break;
+		case 22:
+			printf("PAR");
+			break;
+		case 23:
+			printf("AEO");
+			break;
+		case 24:
+			printf("LDMET");
+			break;
+		case 25:
+			printf("EDMET1");
+			break;
+		case 26:
+			printf("EDMET2");
+			break;
+		case 27:
+			printf("EILEO");
+			break;
+		case 28:
+			printf("EAPPC");
+			break;
+		case 29:
+			printf("EOVER");
+			break;
+		case 30:
+			printf("ECHAIN");
+			break;
+		case 31:
+			printf("ESEL");
+			break;
+		case 32:
+			printf("EPEXP");
+			break;
+		case 33:
+			printf("ECAST");
+			break;
+		case 34:
+			printf("EINSTA");
+			break;
+		case 35:
+			printf("EENV");
+			break;
+		case 36:
+			printf("EOPER");
+			break;
+		case 37:
+			printf("EEXPO");
+			break;
+		case 38:
+			printf("LEXP");
+			break;
+		case 39:
+			printf("ECONST");
+			break;
+		case 40:
+			printf("ENEW");
+			break;
+		case 41:
+			printf("EADD");
+			break;
+		case 42:
+			printf("EMINUS");
+			break;
+		case 43:
+			printf("EMUL");
+			break;
+		case 44:
+			printf("EQUO");
+			break;
+		case 45:
+			printf("APPC");
+			break;
+		case 46:
+			printf("CONST");
+			break;
+		case 47:	
+			printf("EAND");
+			break;
+		case 48:
+			printf("ECAE");
+			break;
+		case 49:
+			printf("EEXP");
+			break;
+		case 50:
+			printf("ERES");
+			break;
+		case 51:
+			printf("ERET");
+			break;
+		case 52:
+			printf("EAFF");
+			break;
+		case 53:
+			printf("ITE");
+			break;
+		case 54:
+			printf("ILINSTO");
+			break;
+		case 55:
+			printf("LINST");
+			break;
+		case 56:
+			printf("EINST");
+			break;
+		case 57:
+			printf("EIB");
+			break;
+		case 58:
+			printf("LINSTO");
+			break;
+		case 59:
+			printf("EIS");
+			break;
+		case 60:
+			printf("EEXPA");
+			break;
+		case 61:
+			printf("EEXPI");
+			break;
+		case 62:
+			printf("IDVAR");
+			break;
+		case 63:
+			printf("ETHIS");
+			break;
+		default:
+			printf("ETIQUETTE NON EXISTANTE !");
+			break;
+	}
+}
+
+
+
 
 
 /**

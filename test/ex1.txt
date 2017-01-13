@@ -181,7 +181,6 @@ class A2() extends A() is {
 { /* Bloc qui correspond au programme principal */ 
   var p1: Point := new Point(1, 5, "p1");
   var p2: Point := new Point(2, 3, "p2");
-  var o : PointColore := new PointColore(0, 0, (new Couleur(0)).blanc());
   var pn : PointNoir := new PointNoir(+1, -1);
   var dp : DefaultPoint := new DefaultPoint();
   var unTest: Test := new Test();
@@ -193,8 +192,8 @@ is
   p2.print();
   o.clone().print();
   o.clone().move(54, 36).print();
-  /* Ne compile pas car clone() renvoie statiquement un Point */
-  /* o := o.clone(); */
+  /* Ne compile pas car clone() renvoie statiquement un Point 
+   o := o.clone(); */
   p1 := p1.clone().move(+2, -3); 
   p1.print();
   o.clone().print();
